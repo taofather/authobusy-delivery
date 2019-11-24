@@ -64,7 +64,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         // Generate GWT
         String token = Jwts.builder()
                 .setSubject(userDto.getEmail())
-                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong("3600000")))
+                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong("43200")))
                 .signWith(SignatureAlgorithm.HS512, TOKEN_SECRET )
                 .compact();
 
