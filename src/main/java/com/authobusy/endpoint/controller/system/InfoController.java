@@ -1,18 +1,13 @@
-package com.authobusy.endpoint.controller;
-
-import java.util.concurrent.atomic.AtomicLong;
+package com.authobusy.endpoint.controller.system;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AccessController {
+public class InfoController {
 
-    private static final String template = "Hello, %s!";
-    private final AtomicLong counter = new AtomicLong();
-
-    @RequestMapping("/user")
+    @RequestMapping("/check")
     public String get(@RequestParam(value="name", defaultValue="World") String name) {
         return "{ content: \"Hello, World!\"}";
     }

@@ -1,4 +1,4 @@
-package com.authobusy.endpoint;
+package com.authobusy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
