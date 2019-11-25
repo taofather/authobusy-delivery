@@ -1,5 +1,6 @@
 package com.authobusy.endpoint.controller.access;
 
+import com.authobusy.endpoint.controller.access.request.LoginRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,10 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-    private static final String template = "Hello, %s!";
-
     @RequestMapping("/login")
-    public String get(@RequestParam(value="name", defaultValue="World") String name) {
-        return "{ content: \"Hello, World!\"}";
+    public String get(@RequestParam LoginRequest request) {
+        return "{ content: \"success\"}";
     }
 }
