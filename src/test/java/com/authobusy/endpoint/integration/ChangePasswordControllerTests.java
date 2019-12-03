@@ -39,7 +39,8 @@ public class ChangePasswordControllerTests {
     @Test
     public void rejectAnonymousPassword() throws Exception {
         this.mockMvc.perform(get("/passchange"))
-            .andDo(print()).andExpect(status().is4xxClientError());
+            .andDo(print())
+            .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -86,8 +87,6 @@ public class ChangePasswordControllerTests {
         this.performRequest(req)
             .andExpect(status().isOk());
     }
-
-
 
     private ResultActions performRequest(PasswordChangeRequest req) throws Exception {
 
