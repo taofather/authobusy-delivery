@@ -1,6 +1,6 @@
 package com.authobusy.endpoint.security;
-import com.authobusy.endpoint.controller.access.request.LoginRequest;
 
+import com.authobusy.endpoint.controller.access.request.LoginRequest;
 import com.authobusy.service.user.UserService;
 import com.authobusy.service.user.UserDto;
 
@@ -23,8 +23,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
     private final UserService usersService;
-    private final String TOKEN_SECRET="h4of9eh48vmg02nfu30v27yen295hfj65";
+
+    private final String TOKEN_SECRET = "h4of9eh48vmg02nfu30v27yen295hfj65";
+
     public AuthenticationFilter(AuthenticationManager authenticationManager,
                                 UserService usersService) {
         this.usersService = usersService;
@@ -64,7 +67,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         // Generate GWT
         String token = Jwts.builder()
                 .setSubject(userDto.getEmail())
-                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong("43200")))
+                .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(WebSecurity.TOKEN_TTL)))
                 .signWith(SignatureAlgorithm.HS512, TOKEN_SECRET )
                 .compact();
 

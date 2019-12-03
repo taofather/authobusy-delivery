@@ -1,6 +1,7 @@
 package com.authobusy.endpoint.security;
 
 import com.authobusy.service.user.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+
+    static final String TOKEN_TTL = "43200";
 
     private final UserService userService;
 
@@ -48,8 +51,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
-        final AuthenticationFilter filter = new AuthenticationFilter(authenticationManager(),
-                userService
+        final AuthenticationFilter filter = new AuthenticationFilter(
+            authenticationManager(),
+            userService
         );
         return filter;
     }
