@@ -17,7 +17,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     public static final String TOKEN_SECRET = "h4of9eh48vmg02nfu30v27yen295hfj65";
 
-    static final String TOKEN_TTL = "43200";
+    static final String TOKEN_TTL = "43200000";
 
     private final UserService userService;
 

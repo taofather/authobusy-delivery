@@ -4,6 +4,7 @@ import com.authobusy.endpoint.controller.access.request.LoginRequest;
 import com.authobusy.endpoint.controller.password.request.PasswordChangeRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,9 @@ public class ChangePasswordControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
-    private String jwt;
+    private static String jwt;
+
+    private static final String USER_IN_MOCK_DB = "pepito@test.com";
 
     private static final String WRONG_PASS  = "111222";
     private static final String EMPTY_PASS  = "";
@@ -36,8 +39,28 @@ public class ChangePasswordControllerTests {
     private static final String INVALID_NEW_PASS  = "000";
     private static final String NEW_PASS  = "is456better";
 
+    @Before
+    public void loginAndGetJwt() throws Exception {
+
+        if (jwt != null) {
+            return;
+        }
+        LoginRequest mockReq = new LoginRequest("pepito@test.com", OLD_PASS);
+        ObjectMapper mapper = new ObjectMapper();
+
+        MvcResult result = this.mockMvc.perform(
+                post("/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(mockReq))
+        )
+                .andReturn();
+
+        jwt = result.getResponse().getHeader("Token");
+
+    }
+
     @Test
-    public void rejectAnonymousPassword() throws Exception {
+    public void rejectAnonymousRequest() throws Exception {
         this.mockMvc.perform(get("/passchange"))
             .andDo(print())
             .andExpect(status().is4xxClientError());
@@ -65,6 +88,7 @@ public class ChangePasswordControllerTests {
     public void rejectWrongOldPasswordParam() throws Exception {
 
         PasswordChangeRequest req = new PasswordChangeRequest(WRONG_PASS, NEW_PASS);
+        req.setUsername(USER_IN_MOCK_DB);
 
         this.performRequest(req)
             .andExpect(status().is4xxClientError());
@@ -73,7 +97,8 @@ public class ChangePasswordControllerTests {
     @Test
     public void rejectInvalidNewPasswordParam() throws Exception {
 
-        PasswordChangeRequest req = new PasswordChangeRequest(WRONG_PASS, INVALID_NEW_PASS);
+        PasswordChangeRequest req = new PasswordChangeRequest(OLD_PASS, INVALID_NEW_PASS);
+        req.setUsername(USER_IN_MOCK_DB);
 
         this.performRequest(req)
             .andExpect(status().is4xxClientError());
@@ -83,6 +108,7 @@ public class ChangePasswordControllerTests {
     public void passwordChangeSuccess() throws Exception {
 
         PasswordChangeRequest req = new PasswordChangeRequest(OLD_PASS, NEW_PASS);
+        req.setUsername(USER_IN_MOCK_DB);
 
         this.performRequest(req)
             .andExpect(status().isOk());
@@ -92,36 +118,12 @@ public class ChangePasswordControllerTests {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        this.loginAndGetJwt();
-
         return this.mockMvc.perform(
                 post("/passchange")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .header("Authorization", "Bearer " + this.jwt)
+                        .header("Authorization", "Bearer " + jwt)
                         .content(mapper.writeValueAsString(req))
             )
             .andDo(print());
     }
-
-    private String loginAndGetJwt() throws Exception {
-
-        if (this.jwt != null) {
-            return this.jwt;
-        }
-
-        LoginRequest mockReq = new LoginRequest("pepito@test.com", OLD_PASS);
-        ObjectMapper mapper = new ObjectMapper();
-
-        MvcResult result = this.mockMvc.perform(
-                post("/login")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(mockReq))
-        )
-                .andReturn();
-
-        this.jwt = result.getResponse().getHeader("Token");
-
-        return this.jwt;
-    }
-
 }

@@ -26,5 +26,8 @@ public class UsersRepository {
         return database.get(email);
     }
 
+    public void persist(User user) {
+        database.put(user.getEmail().getValue(), user);
+    }
 
 }

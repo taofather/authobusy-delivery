@@ -1,7 +1,14 @@
 package com.authobusy.endpoint.controller.password;
 
 import com.authobusy.endpoint.controller.password.request.PasswordChangeRequest;
+import com.authobusy.endpoint.security.WebSecurity;
+import com.authobusy.service.user.UserDto;
+import com.authobusy.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,18 +21,38 @@ import java.security.InvalidParameterException;
 @RestController
 public class PasswordChangeController {
 
+    private UserService userService;
+
+    @Autowired
+    public PasswordChangeController(
+            UserService usersService
+    ) {
+        this.userService = usersService;
+    }
+
     @RequestMapping("/passchange")
     public String get(
             HttpServletRequest request,
             HttpServletResponse response
     ) {
         try {
+            final String requestTokenHeader = request.getHeader("Authorization");
+            String jwtToken = requestTokenHeader.substring(7);
+
+            Jws<Claims> jws = Jwts.parser()
+                .setSigningKey(WebSecurity.TOKEN_SECRET)
+                .parseClaimsJws(jwtToken);
+
+            String email = jws.getBody().getSubject();
+
             PasswordChangeRequest command = new ObjectMapper()
-                .readValue(request.getInputStream(), PasswordChangeRequest.class);
+                    .readValue(request.getInputStream(), PasswordChangeRequest.class);
 
-            command.assertIsValid();
+            command.setUsername(email);
 
-            return "{ success: \"ok\" }";
+            this.userService.changePassword(command);
+
+            return "{ message: \"Password changed for " + email + "\"}";
 
         } catch (IOException ioe) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
