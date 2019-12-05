@@ -4,7 +4,7 @@ Authobusy: endpoint
 **Requirements**
 Java 8 installed
 
-**Install**
+**Install and run**
 
 ```bash
 $ ./gradlew bootRun
@@ -42,3 +42,10 @@ services or repos from the same level.
 
 **About in-memory database**
 I would like to use H2. Now user data is initialized inside the UserRepository constructor :S
+
+**ToDos**
+- WebSecurity.configure ignores LoginController action,
+populate response body with Token and expiration date
+ 
+- For any reason, IntelliJ passes rejectInvalidNewPasswordParam test when
+ running all tests from class declaration "green arrow button"
