@@ -16,6 +16,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
@@ -62,16 +63,16 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
         // Get User Details from Database
         String userName = ((User) auth.getPrincipal()).getUsername();
-        UserDto userDto = usersService.getUserByEmail(userName);
+        UserDetails userDto = usersService.loadUserByUsername(userName);
 
         // Generate GWT
         String token = Jwts.builder()
-                .setSubject(userDto.getEmail())
+                .setSubject(userDto.getUsername())
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(WebSecurity.TOKEN_TTL)))
                 .signWith(SignatureAlgorithm.HS512, WebSecurity.TOKEN_SECRET )
                 .compact();
 
         res.addHeader("Token", token);
-        res.addHeader("UserID", userDto.getEmail());
+        res.addHeader("UserID", userDto.getUsername());
     }
 }
