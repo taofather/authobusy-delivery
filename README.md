@@ -46,6 +46,3 @@ I would like to use H2. Now user data is initialized inside the UserRepository c
 **ToDos**
 - WebSecurity.configure ignores LoginController action,
 populate response body with Token and expiration date
- 
-- For any reason, IntelliJ passes rejectInvalidNewPasswordParam test when
- running all tests from class declaration "green arrow button"

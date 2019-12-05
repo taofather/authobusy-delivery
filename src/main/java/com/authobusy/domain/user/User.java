@@ -1,14 +1,14 @@
 package com.authobusy.domain.user;
 
 import com.authobusy.domain.valueobject.EmailValue;
-import com.authobusy.domain.valueobject.PasswordValue;
+import com.authobusy.domain.valueobject.EncryptedPasswordValue;
 
 public class User {
 
     private EmailValue email;
-    private PasswordValue password;
+    private EncryptedPasswordValue password;
 
-    public User(EmailValue email, PasswordValue password) {
+    public User(EmailValue email, EncryptedPasswordValue password) {
         this.email = email;
         this.password = password;
     }
@@ -17,7 +17,7 @@ public class User {
         return email;
     }
 
-    public PasswordValue getPassword() {
+    public EncryptedPasswordValue getPassword() {
         return password;
     }
 }

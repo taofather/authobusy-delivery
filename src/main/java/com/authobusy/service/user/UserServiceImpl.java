@@ -1,7 +1,8 @@
 package com.authobusy.service.user;
 
 import com.authobusy.domain.user.User;
-import com.authobusy.domain.valueobject.PasswordValue;
+import com.authobusy.domain.valueobject.EncryptedPasswordValue;
+import com.authobusy.domain.valueobject.PlainPasswordValue;
 import com.authobusy.endpoint.controller.password.request.PasswordChangeRequest;
 import com.authobusy.repository.UsersRepository;
 
@@ -43,25 +44,28 @@ public class UserServiceImpl implements UserService {
 
         request.assertIsValid();
 
+        // To Value object, it validates in constructor
+        PlainPasswordValue newPassword = new PlainPasswordValue(request.getNewPassword());
+
         com.authobusy.domain.user.User userEntity = usersRepository
-                .findByEmail(request.getUsername());
+            .findByEmail(request.getUsername());
 
         if (userEntity == null) {
             throw new UsernameNotFoundException(request.getUsername());
         }
 
-        if (! this.passwordEncoder.matches(
+        if (!this.passwordEncoder.matches(
                 request.getOldPassword(),
                 userEntity.getPassword().getValue())
         ) {
             throw new UsernameNotFoundException(request.getUsername());
         }
 
-        String newPassword = this.passwordEncoder.encode(request.getNewPassword());
+        String newPasswordEnc = this.passwordEncoder.encode(newPassword.getValue());
 
         User newUser = new User(
-                userEntity.getEmail(),
-                new PasswordValue(newPassword)
+            userEntity.getEmail(),
+            new EncryptedPasswordValue(newPasswordEnc)
         );
 
         this.usersRepository.persist(newUser);
