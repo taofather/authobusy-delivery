@@ -1,5 +1,6 @@
 package com.authobusy.endpoint.security;
 
+import com.authobusy.service.crypt.PasswordEncoder;
 import com.authobusy.service.user.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -20,12 +21,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private final UserService userService;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public WebSecurity(
             UserService usersService,
-            BCryptPasswordEncoder bCryptPasswordEncoder) {
+            PasswordEncoder bCryptPasswordEncoder) {
         this.userService = usersService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }

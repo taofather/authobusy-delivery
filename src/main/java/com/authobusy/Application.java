@@ -1,15 +1,16 @@
 package com.authobusy;
 
 import com.authobusy.repository.UsersRepository;
+import com.authobusy.service.crypt.PasswordEncoder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @SpringBootApplication
 @Import({
     UsersRepository.class,
-    BCryptPasswordEncoder.class
+    PasswordEncoder.class
 })
 public class Application {
 
