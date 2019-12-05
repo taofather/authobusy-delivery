@@ -26,7 +26,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final UserService usersService;
 
-    private final String TOKEN_SECRET = "h4of9eh48vmg02nfu30v27yen295hfj65";
+
 
     public AuthenticationFilter(AuthenticationManager authenticationManager,
                                 UserService usersService) {
@@ -68,7 +68,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String token = Jwts.builder()
                 .setSubject(userDto.getEmail())
                 .setExpiration(new Date(System.currentTimeMillis() + Long.parseLong(WebSecurity.TOKEN_TTL)))
-                .signWith(SignatureAlgorithm.HS512, TOKEN_SECRET )
+                .signWith(SignatureAlgorithm.HS512, WebSecurity.TOKEN_SECRET )
                 .compact();
 
         res.addHeader("Token", token);
