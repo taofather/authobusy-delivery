@@ -29,6 +29,26 @@ checks if app is up and running
 ```bash
 POST /login
 ```
+Example Request (with working hardcoded user):
+
+```json
+{
+  "email":"pepito@test.com",
+  "password":"123123"
+}
+```
+
+```bash
+POST /passchange
+```
+
+Example request:
+```json
+{
+  "oldpassword":"123123",
+  "newpassword":"321321"
+}
+```
 
 **About DDD**
 
