@@ -42,6 +42,10 @@ Application level is under com.authobusy.service: imagine that we need some comm
 It will be nice to create a "com.authobusy.command" package (more Infrastructure), and be able to call
 services from there.
 
+*New in Authobusy delivery-II* 
+- Request objects moved to Application level (com.authobusy.service), as they should be accessible from other hypothetic Infrastructure packages.
+- Repository belongs to Domain, traditionally.
+
 **About in-memory database**
 I would like to use H2. Now user data is initialized inside the UserRepository constructor :S
 
