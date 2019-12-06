@@ -4,7 +4,7 @@ import com.authobusy.domain.user.User;
 import com.authobusy.domain.valueobject.EncryptedPasswordValue;
 import com.authobusy.domain.valueobject.PlainPasswordValue;
 import com.authobusy.endpoint.controller.password.request.PasswordChangeRequest;
-import com.authobusy.repository.UsersRepository;
+import com.authobusy.domain.user.UsersRepository;
 
 import com.authobusy.service.crypt.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;

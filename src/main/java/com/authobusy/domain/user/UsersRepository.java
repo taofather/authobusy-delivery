@@ -1,6 +1,5 @@
-package com.authobusy.repository;
+package com.authobusy.domain.user;
 
-import com.authobusy.domain.user.User;
 import com.authobusy.domain.valueobject.EmailValue;
 import com.authobusy.domain.valueobject.EncryptedPasswordValue;
 import com.authobusy.service.crypt.PasswordEncoder;

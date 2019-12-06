@@ -1,6 +1,6 @@
 package com.authobusy;
 
-import com.authobusy.repository.UsersRepository;
+import com.authobusy.domain.user.UsersRepository;
 import com.authobusy.service.crypt.PasswordEncoder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
