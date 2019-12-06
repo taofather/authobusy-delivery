@@ -1,8 +1,7 @@
 package com.authobusy.endpoint.security;
 
-import com.authobusy.endpoint.controller.access.request.LoginRequest;
-import com.authobusy.service.user.UserService;
-import com.authobusy.service.user.UserDto;
+import com.authobusy.service.access.request.LoginRequest;
+import com.authobusy.service.access.UserService;
 
 import java.io.IOException;
 import java.util.ArrayList;

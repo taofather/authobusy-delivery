@@ -1,8 +1,8 @@
-package com.authobusy.endpoint.controller.password;
+package com.authobusy.endpoint.controller.access;
 
-import com.authobusy.endpoint.controller.password.request.PasswordChangeRequest;
+import com.authobusy.service.access.request.PasswordChangeRequest;
 import com.authobusy.endpoint.security.WebSecurity;
-import com.authobusy.service.user.UserService;
+import com.authobusy.service.access.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

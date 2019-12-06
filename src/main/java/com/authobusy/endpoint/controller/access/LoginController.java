@@ -1,6 +1,6 @@
 package com.authobusy.endpoint.controller.access;
 
-import com.authobusy.endpoint.controller.access.request.LoginRequest;
+import com.authobusy.service.access.request.LoginRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

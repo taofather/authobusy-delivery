@@ -1,4 +1,4 @@
-package com.authobusy.endpoint.request;
+package com.authobusy.service.request;
 
 import java.security.InvalidParameterException;
 

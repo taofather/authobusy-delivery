@@ -15,6 +15,8 @@ $ ./gradlew bootRun
 $ ./gradlew test
 ```
 
+Issue: some test fail running this way, but passes using IntelliJ bulk test.
+
 Not too verbose, better see the code.
 
 **Available endpoints**
@@ -30,15 +32,15 @@ POST /login
 
 **About DDD**
 
-Application level is com.authobusy.endpoint. I could have called it 'api', but I wanted to be original.
+The Infrastructure/Endpoint package (com.authobusy.endpoint) contains only Controllers and Security implementation. I could have called it 'api', but I wanted to be original.
 
-Domain has the most clearly separated layer. It contains the User entity and some value objects.
+I prefered not to have an Infrastructure folder. No ports and adapters separation is performed yet.
 
-I prefered not to have an Infrastructure folder. Application/Infrastructure mix is under com.authobusy.endpoint.
+*The Application level* 
 
-But I believe that the "service" and "repository" folders can be out of endpoint: imagine that we need some
-commands to be run from console for the sake of the project. It will be nice to create a "com.authobusy.command" package, and be able to call
-services or repos from the same level.
+Application level is under com.authobusy.service: imagine that we need some commands to be run from console for the sake of the project.
+It will be nice to create a "com.authobusy.command" package (more Infrastructure), and be able to call
+services from there.
 
 **About in-memory database**
 I would like to use H2. Now user data is initialized inside the UserRepository constructor :S

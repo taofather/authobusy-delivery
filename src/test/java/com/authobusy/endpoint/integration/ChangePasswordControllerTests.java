@@ -1,7 +1,7 @@
 package com.authobusy.endpoint.integration;
 
-import com.authobusy.endpoint.controller.access.request.LoginRequest;
-import com.authobusy.endpoint.controller.password.request.PasswordChangeRequest;
+import com.authobusy.service.access.request.LoginRequest;
+import com.authobusy.service.access.request.PasswordChangeRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;

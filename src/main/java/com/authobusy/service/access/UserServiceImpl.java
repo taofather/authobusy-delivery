@@ -1,9 +1,9 @@
-package com.authobusy.service.user;
+package com.authobusy.service.access;
 
 import com.authobusy.domain.user.User;
 import com.authobusy.domain.valueobject.EncryptedPasswordValue;
 import com.authobusy.domain.valueobject.PlainPasswordValue;
-import com.authobusy.endpoint.controller.password.request.PasswordChangeRequest;
+import com.authobusy.service.access.request.PasswordChangeRequest;
 import com.authobusy.domain.user.UsersRepository;
 
 import com.authobusy.service.crypt.PasswordEncoder;

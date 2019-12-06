@@ -1,7 +1,7 @@
 package com.authobusy.endpoint.security;
 
 import com.authobusy.service.crypt.PasswordEncoder;
-import com.authobusy.service.user.UserService;
+import com.authobusy.service.access.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

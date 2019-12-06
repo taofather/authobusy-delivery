@@ -1,6 +1,6 @@
-package com.authobusy.service.user;
+package com.authobusy.service.access;
 
-import com.authobusy.endpoint.controller.password.request.PasswordChangeRequest;
+import com.authobusy.service.access.request.PasswordChangeRequest;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserService extends UserDetailsService {

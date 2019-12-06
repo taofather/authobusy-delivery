@@ -1,4 +1,4 @@
-package com.authobusy.endpoint.controller.access.request;
+package com.authobusy.service.access.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

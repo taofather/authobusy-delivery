@@ -1,7 +1,6 @@
-package com.authobusy.endpoint.controller.password.request;
+package com.authobusy.service.access.request;
 
-import com.authobusy.domain.valueobject.EmailValue;
-import com.authobusy.endpoint.request.ValidableRequest;
+import com.authobusy.service.request.ValidableRequest;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
