@@ -2,10 +2,10 @@ package com.authobusy.endpoint.controller.password;
 
 import com.authobusy.endpoint.controller.password.request.PasswordChangeRequest;
 import com.authobusy.endpoint.security.WebSecurity;
-import com.authobusy.service.user.UserDto;
 import com.authobusy.service.user.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +60,9 @@ public class PasswordChangeController {
         } catch (InvalidParameterException inve) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return "{ error: " + inve.getMessage() + "}";
+        } catch (ExpiredJwtException expiredJwtE) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            return "{ error: \"Expired token\" }";
         }
-
     }
 }
